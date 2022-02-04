@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/models/tasklist.dart';
 import 'package:todo_app/screens/note_delete.dart';
 import 'package:todo_app/screens/todo_modify.dart';
+import 'package:todo_app/provider/addtask.dart';
 import '../widgets/drawer.dart';
 
 class MainPage extends StatefulWidget {
@@ -10,33 +12,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<TaskList> task = [
-    TaskList(
-      taskId: 1,
-      title: "Play football",
-      Description: "We have a very important match against real madrid.",
-      createdAt: DateTime.now(),
-    ),
-    TaskList(
-      taskId: 2,
-      title: "Study for exam",
-      Description: "The exam is from the next week.",
-      important: true,
-      createdAt: DateTime.now(),
-    ),
-    TaskList(
-      taskId: 2,
-      title: "Study for exam",
-      Description: "The exam is from the next week.",
-      important: true,
-      createdAt: DateTime.now(),
-      isCompleted: true,
-    )
-  ];
-
   //int count = 0;
   @override
   Widget build(BuildContext context) {
+    final taskdata = Provider.of<AddTask>(context);
+    final task = taskdata.addedtask;
     final _size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
@@ -68,10 +48,14 @@ class _MainPageState extends State<MainPage> {
               SizedBox(
                 height: _size.height * 0.03,
               ),
-              Text(
-                'To-Do List',
-                style: TextStyle(
-                    fontSize: _size.height * 0.03, fontWeight: FontWeight.w600),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'To-Do List',
+                  style: TextStyle(
+                      fontSize: _size.height * 0.03,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
               SizedBox(height: _size.height * 0.03),
               Text(
